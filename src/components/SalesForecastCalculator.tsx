@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -50,12 +49,12 @@ const SalesForecastCalculator = () => {
     let currentSales = initialSales;
 
     for (let i = 1; i <= timeframe; i++) {
-      currentSales = currentSales * (1 + growthRate / 100);
-      total += currentSales;
       data.push({
         label: `Month ${i}`,
         value: Math.round(currentSales),
       });
+      total += currentSales;
+      currentSales = currentSales * (1 + growthRate / 100);
     }
 
     setForecastData(data);
@@ -197,7 +196,7 @@ const SalesForecastCalculator = () => {
                 
                 <TabsContent value="chart" className="mt-0">
                   <div className="h-[300px]">
-                    <SalesForecastChart data={forecastData} />
+                    {forecastData.length > 0 && <SalesForecastChart data={forecastData} />}
                   </div>
                 </TabsContent>
                 
